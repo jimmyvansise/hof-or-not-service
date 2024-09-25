@@ -8,7 +8,11 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc",
-    "start": "node ./bin/app.js"
+    "start": "node ./bin/app.js",
+    "docker:db:start": "docker compose up",
+    "docker:db:stop": "docker compose down",
+    "docker:service:build": "docker build -t jimmyvansise-burger-service -f docker/rest.dockerfile .",
+    "docker:service:start": "docker run --name burger-service -p 8080:8080 -d jimmyvansise-burger-service"
   },
   "keywords": [],
   "dependencies": {

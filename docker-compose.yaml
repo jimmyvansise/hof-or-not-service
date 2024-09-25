@@ -1,0 +1,23 @@
+services:
+  db:
+    container_name: burger-service-db
+    image: cimg/postgres:14.4
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    healthcheck:
+      test: "pg_isready -q -U ${POSTGRES_USER}"
+  flyway:
+    container_name: flyway
+    image: flyway/flyway
+    entrypoint: sh
+    command:
+      -c "
+      flyway -url=jdbc:postgresql://db/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql -cleanDisabled=false clean; 
+      flyway -url=jdbc:postgresql://db/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate"
+    volumes:
+      - ${PWD}/db/migration:/flyway/sql
+    depends_on:
+      db:
+        condition: service_healthy
