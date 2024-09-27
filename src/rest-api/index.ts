@@ -46,6 +46,6 @@ export const createServer = () => {
     //server.post('/players/:playerId/wallet/debit', debitPlayerCoins);
     
     return server.listen(8080, () => {
-        console.info(`Burgers listening on http://localhost:8080`);
+        console.info(`HOF or Not listening on http://localhost:8080`);
     });
 }

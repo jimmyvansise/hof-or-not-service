@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: burger-service-db
+    container_name: hof-or-not-service-db
     image: cimg/postgres:14.4
     ports:
       - 5432:5432

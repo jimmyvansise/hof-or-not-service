@@ -1,9 +1,9 @@
 {
-  "name": "burgers-service",
+  "name": "hof-or-not-service",
   "version": "1.0.0",
   "description": "Backend service",
   "main": "src/app.ts",
-  "repository": "https://github.com/jimmyvansise/burgers-service.git",
+  "repository": "https://github.com/jimmyvansise/hof-or-not-service.git",
   "author": "Jimmy Van Sise <jimmyvansise@hotmail.com>",
   "license": "ISC",
   "scripts": {
@@ -11,8 +11,8 @@
     "start": "node ./bin/app.js",
     "docker:db:start": "docker compose up",
     "docker:db:stop": "docker compose down",
-    "docker:service:build": "docker build -t jimmyvansise-burger-service -f docker/rest.dockerfile .",
-    "docker:service:start": "docker run --name burger-service -p 8080:8080 -d jimmyvansise-burger-service"
+    "docker:service:build": "docker build -t jimmyvansise-hof-or-not-service -f docker/rest.dockerfile .",
+    "docker:service:start": "docker run --name hof-or-not-service -p 8080:8080 -d jimmyvansise-hof-or-not-service"
   },
   "keywords": [],
   "dependencies": {

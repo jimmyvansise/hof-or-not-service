@@ -1,2 +1,2 @@
-# burgers-service
+# hof-or-not-service
 Backend service
