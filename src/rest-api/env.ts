@@ -1,16 +1,14 @@
-/*
 import { PoolClient } from 'pg';
 
 import { EnvConfig } from '.';
 
-export const walletReader = async (): Promise<PoolClient> => 
-  EnvConfig.walletReadDatabasePool.connect();
+export const reader = async (): Promise<PoolClient> => 
+  EnvConfig.readDatabasePool.connect();
 
-export const walletWriter = async (): Promise<PoolClient> => 
-  EnvConfig.walletWriteDatabasePool.connect();
+export const writer = async (): Promise<PoolClient> => 
+  EnvConfig.writeDatabasePool.connect();
 
 export const endDbPools = async () => {
-  await EnvConfig.walletReadDatabasePool.end();
-  await EnvConfig.walletWriteDatabasePool.end();
+  await EnvConfig.readDatabasePool.end();
+  await EnvConfig.writeDatabasePool.end();
 }
-*/
