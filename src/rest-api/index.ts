@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
 
@@ -36,6 +37,9 @@ export const createServer = () => {
     }
 
     const server = express();
+    server.use(cors({
+        origin: 'http://127.0.0.1:3000'
+    }));
     server.use(express.json());
 
     server.get('/players/:playerId/', getPlayer);
