@@ -3,7 +3,12 @@ type Player = {
     readonly firstName: string;
     readonly lastName: string;
     readonly nickname: string;
+    readonly position: string;
+    readonly superBowlWins: number;
+    readonly proBowls: number;
+    readonly mvps: number;
     readonly yearRetired: number;
+    readonly picture: string;
 };
 
 type PlayerRow = {
@@ -11,14 +16,24 @@ type PlayerRow = {
     readonly first_name: string;
     readonly last_name: string;
     readonly nickname: string;
+    readonly position: string;
+    readonly super_bowl_wins: string;
+    readonly pro_bowls: string;
+    readonly mvps: string;
     readonly year_retired: string;
+    readonly picture: string;
 };
 
 type PlayerPayload = {
     readonly firstName: string;
     readonly lastName: string;
     readonly nickname: string;
+    readonly position: string;
+    readonly superBowlWins: number;
+    readonly proBowls: number;
+    readonly mvps: number;
     readonly yearRetired: number;
+    readonly picture: string;
 };
 
 type PlayerIdPayload = {
@@ -26,12 +41,3 @@ type PlayerIdPayload = {
 };
 
 type PlayerPayloadWithPlayerId = PlayerPayload & PlayerIdPayload;
-/*
-CREATE TABLE players (
-    player_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    nickname VARCHAR(50) NOT NULL,
-    year_retired SMALLINT DEFAULT NULL
-);
-*/

@@ -6,6 +6,8 @@ services:
       - 5432:5432
     env_file:
       - .env
+    volumes:
+      - ./db/player-picture-base64s.csv:/app/player-picture-base64s.csv
     healthcheck:
       test: "pg_isready -q -U ${POSTGRES_USER}"
   flyway:

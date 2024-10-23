@@ -41,7 +41,12 @@ export const getPlayer: RequestHandler = async (
             firstName: maybeExistingPlayer.value.firstName,
             lastName: maybeExistingPlayer.value.lastName,
             nickname: maybeExistingPlayer.value.nickname,
+            position: maybeExistingPlayer.value.position,
+            superBowlWins: maybeExistingPlayer.value.superBowlWins,
+            proBowls: maybeExistingPlayer.value.proBowls,
+            mvps: maybeExistingPlayer.value.mvps,
             yearRetired: maybeExistingPlayer.value.yearRetired,
+            picture: maybeExistingPlayer.value.picture,
         })
     }
     finally {

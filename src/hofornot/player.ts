@@ -10,7 +10,12 @@ const _normalize = (playerRow: PlayerRow): Player => {
         firstName: playerRow.first_name,
         lastName: playerRow.last_name,
         nickname: playerRow.nickname,
-        yearRetired: parseInt(playerRow.year_retired)
+        position: playerRow.position,
+        superBowlWins: parseInt(playerRow.super_bowl_wins),
+        proBowls: parseInt(playerRow.pro_bowls),
+        mvps: parseInt(playerRow.mvps),
+        yearRetired: parseInt(playerRow.year_retired),
+        picture: playerRow.picture
     }
 };
 
