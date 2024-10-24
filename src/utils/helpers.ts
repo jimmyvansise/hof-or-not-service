@@ -45,7 +45,29 @@ export const parsePlayerIdParameterFromRequest = (
             status: 400,
             error: new Error(zodErrorToString(maybePlayerId.error)),
         };
-    };
+};
+
+export const parseUserIdParameterFromRequest = (
+    req: Readonly<Request>,
+): Either<Error, string> => {
+    const maybeUserId = z
+        .object({
+            userId: z.string(),
+        })
+        .safeParse(req.params);
+
+    return maybeUserId.success
+        ? {
+            ok: true,
+            status: 200,
+            value: maybeUserId.data.userId,
+        }
+        : {
+            ok: false,
+            status: 400,
+            error: new Error(zodErrorToString(maybeUserId.error)),
+        };
+};
 
 export const logger = winston.createLogger({
     level: 'info',

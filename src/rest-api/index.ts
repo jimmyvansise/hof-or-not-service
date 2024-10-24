@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
+import { postVote } from '../hofornot/api/post-vote';
 
 dotenv.config();
 
@@ -37,20 +38,22 @@ export const createServer = () => {
     }
 
     const server = express();
-    server.use(cors({
-        origin: 'http://localhost:3000'
-    }));
+    const cookieParser = require('cookie-parser');
     /*
+        multiple origin example
         app.use(cors({
             origin: ['http://localhost:3000', 'https://yourproductiondomain.com']
         }));
     */
+    server.use(cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+    }));
     server.use(express.json());
+    server.use(cookieParser());
 
     server.get('/players/:playerId/', getPlayer);
-
-    //server.post('/players/:playerId/wallet/credit', creditPlayerCoins);
-    //server.post('/players/:playerId/wallet/debit', debitPlayerCoins);
+    server.post('/votes', postVote);
     
     return server.listen(8080, () => {
         console.info(`HOF or Not listening on http://localhost:8080`);
