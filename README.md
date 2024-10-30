@@ -21,6 +21,6 @@ After the DB is running you will have to insert the values into the database by 
 
 3 run this `psql -U postgres -d hofornot -c "COPY hofornot.players (player_id,first_name, last_name, nickname, position, super_bowl_wins, pro_bowls, mvps, year_retired, picture) FROM '/app/player-picture-base64s.csv' DELIMITER '|'  CSV NULL 'NULL'"`
 
-When running flyway, if you want to complete wipe out the database, including values (not recommended), add this to commands before the migrate line in docker-compose.yaml:
+When running flyway, if you want to completely wipe out the database, including values (not recommended, players/votes will be lost), add this to commands before the migrate line in docker-compose.yaml:
 
 `flyway -url=jdbc:postgresql://db/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql -cleanDisabled=false clean;`
