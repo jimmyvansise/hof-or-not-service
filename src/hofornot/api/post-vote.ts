@@ -23,23 +23,20 @@ export const postVote: RequestHandler = async (
     const writeClient = await writer();
 
     try {
-        const maybeVote = await upsertVote(writeClient, userId, playerId, hofChoice);
+        const maybeVoteAndResults = await upsertVote(writeClient, userId, playerId, hofChoice);
 
-        if (!maybeVote.ok) {
+        if (!maybeVoteAndResults.ok) {
             logger.error(
-                `[postVote] could not vote. ${errorToString(maybeVote.error)}`
+                `[postVote] could not vote. ${errorToString(maybeVoteAndResults.error)}`
             );
-            return res.status(maybeVote.status).send(
-                errorToString(maybeVote.error)
+            return res.status(maybeVoteAndResults.status).send(
+                errorToString(maybeVoteAndResults.error)
             );
         }
     
-        //TODO: Send vote results back for the player they voted for...
-        // or create another endpoint for vote results for a player
-        // or do both of the above
-        return res.status(maybeVote.status)
+        return res.status(maybeVoteAndResults.status)
                 .cookie('userId', userId, { maxAge: 800000000000 })
-                .send({ ...maybeVote.value });
+                .send({ ...maybeVoteAndResults.value });
     }
     finally {
         writeClient.release();

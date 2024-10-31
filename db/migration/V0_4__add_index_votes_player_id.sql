@@ -1,0 +1,1 @@
+CREATE INDEX idx_votes_player_id ON votes(player_id);
