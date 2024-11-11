@@ -1,4 +1,4 @@
-type Failure<T = Error> = {
+type Failure<T> = {
     readonly ok: false;
     readonly status: number;
     readonly error: T;
