@@ -13,6 +13,7 @@ const openDatabasePool = (host: string, password: string, database: string, user
     port: 5432,
     database,
     password,
+    ssl: true,
 });
 
 export const EnvConfig = {

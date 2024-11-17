@@ -24,3 +24,11 @@ After the DB is running you will have to insert the values into the database by 
 When running flyway, if you want to completely wipe out the database, including values (not recommended, players/votes will be lost), add this to commands before the migrate line in docker-compose.yaml:
 
 `flyway -url=jdbc:postgresql://db/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql -cleanDisabled=false clean;`
+
+
+
+To run flyway migrations on production, modify the .env file with the production database values,
+and then modify the docker-compose.yaml with this line for flyway
+`flyway -url=jdbc:postgresql://hofornot.cz2y86moc6n3.us-east-2.rds.amazonaws.com:5432/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate"`
+After that, if you need to insert values (like new players), use the .csv file at 
+`db/player-picture-base64s.csv` and import values using TablePlus after connecting to production
