@@ -52,6 +52,9 @@ export const createServer = () => {
     server.use(express.json());
     server.use(cookieParser());
 
+    server.get('/health', (_, res) => {
+        res.status(200).send('HOF service is healthy');
+    });
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
     
