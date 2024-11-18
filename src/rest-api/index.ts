@@ -40,14 +40,13 @@ export const createServer = () => {
 
     const server = express();
     const cookieParser = require('cookie-parser');
-    /*
-        multiple origin example
-        app.use(cors({
-            origin: ['http://localhost:3000', 'https://yourproductiondomain.com']
-        }));
-    */
+    
     server.use(cors({
-        origin: 'http://localhost:3000',
+        origin: [
+            'http://localhost:3000', 
+            'https://hofornot.app/',
+            'https://master.duaxi8s44iqme.amplifyapp.com/'
+        ],
         credentials: true,
     }));
     server.use(express.json());
