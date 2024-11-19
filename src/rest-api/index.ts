@@ -44,6 +44,7 @@ export const createServer = () => {
     server.use(cors({
         origin: [
             'http://localhost:3000', 
+            'https://localhost:3000', 
             'https://hofornot.app/',
             'https://master.duaxi8s44iqme.amplifyapp.com/'
         ],
