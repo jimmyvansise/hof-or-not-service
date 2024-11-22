@@ -41,7 +41,7 @@ export const createServer = () => {
 
     const server = express();
     const cookieParser = require('cookie-parser');
-    
+
     server.use(cors({
         origin: [
             'http://localhost:3000', 
@@ -69,11 +69,17 @@ export const createServer = () => {
             cert: fs.readFileSync('./keys/cert-production.crt', 'utf8')
         };
     }
-    else {
+    else if (process.env.ENVIRONMENT === 'developmentSSL') {
         options = {
             key: fs.readFileSync('./cert/private-dev.key'),
             cert: fs.readFileSync('./cert/cert-dev.crt')
         }
+    }
+    else {
+        // for development, don't bother with SSL
+        return server.listen(8080, () => {
+            console.info('HOF or Not listening on http://localhost:8080');
+        });
     }
   
     const httpsServer = https.createServer(options, server);

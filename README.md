@@ -9,10 +9,7 @@ The best way to run the project locally, is to:
 
 3 `npm run docker:service:start` to start the service in docker
 
-4 Now that the project is running with SSL, open ./cert/cert-dev.crt in keychain access, and set to 'Always Trust' after double clicking it. Otherwise you will get SSL errors about being untrusted
-
 Note for steps 2 and 3: You can also just run the service through terminal by doing `npm run build` and `npm run start` if you don't feel like running the service in docker.
-
 
 
 After the DB is running you will have to insert the values into the database by running a command from the docker terminal:
