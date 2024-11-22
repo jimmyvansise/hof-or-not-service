@@ -9,7 +9,9 @@ The best way to run the project locally, is to:
 
 3 `npm run docker:service:start` to start the service in docker
 
-Note: You can also just run the service through terminal by doing `npm run build` and `npm run start` after the db is running in docker.
+4 Now that the project is running with SSL, open ./cert/cert-dev.crt in keychain access, and set to 'Always Trust' after double clicking it. Otherwise you will get SSL errors about being untrusted
+
+Note for steps 2 and 3: You can also just run the service through terminal by doing `npm run build` and `npm run start` if you don't feel like running the service in docker.
 
 
 
@@ -20,6 +22,8 @@ After the DB is running you will have to insert the values into the database by 
 2 go to the root directory `cd ../../../`
 
 3 run this `psql -U postgres -d hofornot -c "COPY hofornot.players (player_id,first_name, last_name, nickname, position, super_bowl_wins, pro_bowls, mvps, year_retired, picture) FROM '/app/player-picture-base64s.csv' DELIMITER '|'  CSV NULL 'NULL'"`
+
+
 
 When running flyway, if you want to completely wipe out the database, including values (not recommended, players/votes will be lost), add this to commands before the migrate line in docker-compose.yaml:
 

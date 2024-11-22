@@ -4,3 +4,5 @@ bin
 tsconfig.tsbuildinfo
 .productionenv
 productionrest.dockerfile
+cert-production.crt
+private-production.key

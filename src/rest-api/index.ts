@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
+import https from 'https';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
 import { postVote } from '../hofornot/api/post-vote';
@@ -47,6 +49,8 @@ export const createServer = () => {
             'https://hofornot.app/',
             'https://master.duaxi8s44iqme.amplifyapp.com/'
         ],
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
     }));
     server.use(express.json());
@@ -57,8 +61,24 @@ export const createServer = () => {
     });
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
-    
-    return server.listen(8080, () => {
-        console.info(`HOF or Not listening on http://localhost:8080`);
+
+    let options;
+    if (process.env.ENVIRONMENT === 'production') {
+        options = {
+            key: fs.readFileSync('./keys/private-production.key', 'utf8'),
+            cert: fs.readFileSync('./keys/cert-production.crt', 'utf8')
+        };
+    }
+    else {
+        options = {
+            key: fs.readFileSync('./cert/private-dev.key'),
+            cert: fs.readFileSync('./cert/cert-dev.crt')
+        }
+    }
+  
+    const httpsServer = https.createServer(options, server);
+
+    return httpsServer.listen(443, () => {
+        console.info('HOF or Not listening on https://localhost:443');
     });
 }
