@@ -44,9 +44,10 @@ export const createServer = () => {
 
     server.use(cors({
         origin: [
-            'http://localhost:3000', 
-            'https://localhost:3000', 
+            'http://localhost:3000',
+            'https://localhost:3000',
             'https://hofornot.app/',
+            'https://www.hofornot.app/',
             'https://master.duaxi8s44iqme.amplifyapp.com/'
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -61,7 +62,12 @@ export const createServer = () => {
     });
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
-
+    
+    return server.listen(8080, () => {
+        console.info('HOF or Not listening on http://localhost:8080');
+    });
+  
+    /*
     let options;
     if (process.env.ENVIRONMENT === 'production') {
         options = {
@@ -76,15 +82,12 @@ export const createServer = () => {
         }
     }
     else {
-        // for development, don't bother with SSL
-        return server.listen(8080, () => {
-            console.info('HOF or Not listening on http://localhost:8080');
-        });
     }
-  
+
     const httpsServer = https.createServer(options, server);
 
     return httpsServer.listen(443, () => {
         console.info('HOF or Not listening on https://localhost:443');
     });
+    */
 }
