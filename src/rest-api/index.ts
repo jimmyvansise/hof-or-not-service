@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import http from 'http';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
 import { postVote } from '../hofornot/api/post-vote';
@@ -14,6 +13,7 @@ const openDatabasePool = (host: string, password: string, database: string, user
     port: 5432,
     database,
     password,
+    ssl: (process.env.ENVIRONMENT === 'production')
 });
 
 export const EnvConfig = {
@@ -53,6 +53,12 @@ export const createServer = () => {
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
     }));
+    // Access to fetch at 'https://api.hofornot.app/players/9' 
+    // from origin 'https://www.hofornot.app' has been blocked by 
+    // CORS policy: No 'Access-Control-Allow-Origin' 
+    // header is present on the requested resource. 
+    // If an opaque response serves your needs, set the request's 
+    // mode to 'no-cors' to fetch the resource with CORS disabled.
     server.use(express.json());
     server.use(cookieParser());
 
@@ -62,12 +68,12 @@ export const createServer = () => {
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
 
-    const httpServer = http.createServer(server);
+    // const httpServer = http.createServer(server);
 
-    httpServer.timeout = 66000;
-    httpServer.keepAliveTimeout = 65000;
+    // httpServer.timeout = 66000;
+    // httpServer.keepAliveTimeout = 65000;
     
-    return httpServer.listen(8080, () => {
+    return server.listen(8080, () => {
         console.info('HOF or Not listening on http://localhost:8080');
     });
   
