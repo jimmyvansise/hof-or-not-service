@@ -1,8 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import fs from 'fs';
-import https from 'https';
+import http from 'http';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
 import { postVote } from '../hofornot/api/post-vote';
@@ -44,12 +43,11 @@ export const createServer = () => {
 
     server.use(cors({
         origin: [
+            'https://hofornot.app',
+            'https://www.hofornot.app',
+            'https://master.duaxi8s44iqme.amplifyapp.com',
             'http://localhost:3000',
             'https://localhost:3000',
-            'https://hofornot.app/',
-            'https://www.hofornot.app',
-            'https://www.hofornot.app/',
-            'https://master.duaxi8s44iqme.amplifyapp.com/'
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization'],
@@ -63,8 +61,13 @@ export const createServer = () => {
     });
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
+
+    const httpServer = http.createServer(server);
+
+    httpServer.timeout = 66000;
+    httpServer.keepAliveTimeout = 65000;
     
-    return server.listen(8080, () => {
+    return httpServer.listen(8080, () => {
         console.info('HOF or Not listening on http://localhost:8080');
     });
   
