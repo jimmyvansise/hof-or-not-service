@@ -27,8 +27,10 @@ When running flyway, if you want to completely wipe out the database, including 
 `flyway -url=jdbc:postgresql://db/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql -cleanDisabled=false clean;`
 
 
+Production notes:
+* The environment variables are stored in AWS, under the task definition in ECS. Whatever .env you publish to ECR won't actually matter.
 
-To run flyway migrations on production, modify the .env file with the production database values,
+* To run flyway migrations on production, modify the .env file with the production database values,
 and then modify the docker-compose.yaml with this line for flyway
 `flyway -url=jdbc:postgresql://hofornot.cz2y86moc6n3.us-east-2.rds.amazonaws.com:5432/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate"`
 After that, if you need to insert values (like new players), use the .csv file at 
