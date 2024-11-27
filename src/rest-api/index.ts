@@ -53,12 +53,6 @@ export const createServer = () => {
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
     }));
-    // Access to fetch at 'https://api.hofornot.app/players/9' 
-    // from origin 'https://www.hofornot.app' has been blocked by 
-    // CORS policy: No 'Access-Control-Allow-Origin' 
-    // header is present on the requested resource. 
-    // If an opaque response serves your needs, set the request's 
-    // mode to 'no-cors' to fetch the resource with CORS disabled.
     server.use(express.json());
     server.use(cookieParser());
 
@@ -67,37 +61,8 @@ export const createServer = () => {
     });
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
-
-    // const httpServer = http.createServer(server);
-
-    // httpServer.timeout = 66000;
-    // httpServer.keepAliveTimeout = 65000;
     
     return server.listen(8080, () => {
         console.info('HOF or Not listening on http://localhost:8080');
     });
-  
-    /*
-    let options;
-    if (process.env.ENVIRONMENT === 'production') {
-        options = {
-            key: fs.readFileSync('./keys/private-production.key', 'utf8'),
-            cert: fs.readFileSync('./keys/cert-production.crt', 'utf8')
-        };
-    }
-    else if (process.env.ENVIRONMENT === 'developmentSSL') {
-        options = {
-            key: fs.readFileSync('./cert/private-dev.key'),
-            cert: fs.readFileSync('./cert/cert-dev.crt')
-        }
-    }
-    else {
-    }
-
-    const httpsServer = https.createServer(options, server);
-
-    return httpsServer.listen(443, () => {
-        console.info('HOF or Not listening on https://localhost:443');
-    });
-    */
 }
