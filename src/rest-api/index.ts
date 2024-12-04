@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
 import { postVote } from '../hofornot/api/post-vote';

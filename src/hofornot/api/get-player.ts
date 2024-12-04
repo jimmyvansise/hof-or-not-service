@@ -1,10 +1,36 @@
 import { Request, RequestHandler, Response } from 'express';
-
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { reader } from '../../rest-api/env';
 import { errorToString, logger } from '../../utils/helpers';
 import { selectPlayer } from '../player';
-
 import { parseGetPlayerPayload } from './get-player.parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID as string;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY as string;
+const s3Client = new S3Client({
+    region: 'us-east-2',
+    credentials: {
+        accessKeyId,
+        secretAccessKey
+    },
+});
+
+async function generatePresignedUrl(key: string) {
+  const params = {
+    Bucket: 'nfl-player-pictures',
+    Key: key,
+    Expires: 60 * 60 * 24 // 24 hours
+  };
+
+  const signedUrl = await getSignedUrl(s3Client, new GetObjectCommand(params), {
+      expiresIn: 60 * 60 * 24,
+  });
+  return signedUrl;
+}
 
 export const getPlayer: RequestHandler = async (
     req: Readonly<Request>,
@@ -35,6 +61,8 @@ export const getPlayer: RequestHandler = async (
                 errorToString(maybeExistingPlayer.error)
             );
         }
+
+        const presignedUrl = await generatePresignedUrl(maybeExistingPlayer.value.picture);
     
         return res.status(maybeExistingPlayer.status).send({
             id: maybeExistingPlayer.value.playerId, 
@@ -46,7 +74,7 @@ export const getPlayer: RequestHandler = async (
             proBowls: maybeExistingPlayer.value.proBowls,
             mvps: maybeExistingPlayer.value.mvps,
             yearRetired: maybeExistingPlayer.value.yearRetired,
-            picture: maybeExistingPlayer.value.picture,
+            picture: presignedUrl,
         })
     }
     finally {

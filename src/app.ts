@@ -1,3 +1,3 @@
-import { createServer } from './rest-api'
+import { createServer } from './rest-api';
 
 createServer();
