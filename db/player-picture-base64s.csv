@@ -1,3 +1,4 @@
+player_id|first_name|last_name|nickname|position|super_bowl_wins|pro_bowls|mvps|year_retired|picture
 1|Dak|Prescott||QB|0|3|0|NULL|prescott.jpg
 2|Tom|Brady||QB|7|15|3|2023|brady.jpg
 3|Joe|Montana||QB|4|8|2|1995|joemontana.jpg
@@ -58,3 +59,23 @@
 58|Zach|Thomas||LB|0|7|0|2008|zachthomas.jpg
 59|Aaron|Donald||DT|1|10|0|2023|aarondonald.jpg
 60|Brian|Dawkins|Weapon X|DB|0|9|0|2011|briandawkins.jpg
+61|Danny|White||QB|1|1|0|1988|dannywhite.jpg
+62|Randy|White|Manster|DT|1|9|0|1988|randywhite.jpg
+63|Brett|Favre||QB|1|11|3|2010|brettfavre.jpg
+64|Randall|Cunningham|The Ultimate Weapon|QB|0|4|0|2001|randallcunningham.jpg
+65|Michael|Vick||QB|0|4|0|2015|michaelvick.jpg
+66|Junior|Seau||LB|0|12|0|2009|juniorseau.jpg
+67|Warren|Moon||QB|0|9|0|2000|warrenmoon.jpg
+68|Tyreek|Hill|Cheetah|WR|1|8|0|NULL|tyreekhill.jpg
+69|Philip|Rivers||QB|0|8|0|2020|philiprivers.jpg
+70|Jack|Youngblood||DE|0|7|0|1984|jackyoungblood.jpg
+71|Aaron|Rodgers|A-Rod|QB|1|10|4|NULL|aaronrodgers.jpg
+72|Sid|Luckman||QB/HB|4|3|0|1950|sidluckman.jpg
+73|Clyde|Turner|Bulldog|C|4|4|0|1952|clydeturner.jpg
+74|Joe|Perry|The Jet|FB|0|3|1|1963|joeperry.jpg
+75|Dick|Lane|Night Train Lane|DB|0|7|0|1965|dicklane.jpg
+76|Bill|George||LB/G|1|8|0|1966|billgeorge.jpg
+77|Bart|Starr||QB|2|4|1|1971|bartstarr.jpg
+78|Joe|Namath|Broadway Joe|QB|1|5|0|1977|joenamath.jpg
+79|Bob|Lilly|Tiger|DT/DE|1|11|0|1974|boblilly.jpg
+80|Roger|Staubach|Roger the Dodger|QB|2|6|0|1979|rogerstaubach.jpg
