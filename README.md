@@ -18,7 +18,7 @@ After the DB is running you will have to insert the values into the database by 
 
 2 go to the root directory `cd ../../../`
 
-3 run this `psql -U postgres -d hofornot -c "COPY hofornot.players (player_id,first_name, last_name, nickname, position, super_bowl_wins, pro_bowls, mvps, year_retired, picture) FROM '/app/player-picture-base64s.csv' DELIMITER '|'  CSV NULL 'NULL'"`
+3 run this `psql -U postgres -d hofornot -c "COPY hofornot.players (player_id, first_name, last_name, nickname, position, super_bowl_wins, pro_bowls, mvps, year_retired, picture) FROM '/app/player-picture-base64s.csv' DELIMITER '|' CSV HEADER NULL 'NULL'"`
 
 
 
