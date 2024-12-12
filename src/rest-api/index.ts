@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
 import { getPlayer } from '../hofornot/api/get-player';
+import { getPlayerNames } from '../hofornot/api/get-player-names';
 import { postVote } from '../hofornot/api/post-vote';
 
 dotenv.config();
@@ -59,6 +60,8 @@ export const createServer = () => {
     server.get('/health', (_, res) => {
         res.status(200).send('HOF service is healthy');
     });
+
+    server.get('/players/names', getPlayerNames);
     server.get('/players/:playerId/', getPlayer);
     server.post('/votes', postVote);
     

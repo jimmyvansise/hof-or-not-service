@@ -5,6 +5,10 @@ export const SELECT_PLAYER_BY_PLAYER_ID = `
     WHERE player_id = $1
 `;
 
+export const SELECT_PLAYER_NAMES = `
+    SELECT player_id, first_name || last_name AS name FROM ${TABLES.PLAYERS}
+`;
+
 export const UPSERT_VOTE = `
     INSERT INTO ${TABLES.VOTES}
     ( user_id, player_id, hof_choice )

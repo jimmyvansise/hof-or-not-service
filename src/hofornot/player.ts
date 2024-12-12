@@ -2,7 +2,7 @@ import { PoolClient } from 'pg';
 
 import { toFailure, toSuccess } from '../utils/helpers';
 
-import { SELECT_PLAYER_BY_PLAYER_ID } from './queries';
+import { SELECT_PLAYER_BY_PLAYER_ID, SELECT_PLAYER_NAMES } from './queries';
 
 const _normalize = (playerRow: PlayerRow): Player => {
     return { 
@@ -16,6 +16,13 @@ const _normalize = (playerRow: PlayerRow): Player => {
         mvps: parseInt(playerRow.mvps),
         yearRetired: parseInt(playerRow.year_retired),
         picture: playerRow.picture
+    }
+};
+
+const _normalizePlayerNameRow = (playerNameRow: PlayerNameRow): PlayerName => {
+    return { 
+        playerId: playerNameRow.player_id, 
+        name: playerNameRow.name,
     }
 };
 
@@ -37,5 +44,25 @@ export const selectPlayer = async (
     }).catch((err) => {
         return toFailure(500, 
             `[selectPlayer] Error when selecting player for playerId ${playerId}. Error: ${err.message}`
+        );
+    });
+
+export const selectPlayerNames = async (
+    client: Readonly<PoolClient>
+): Promise<Either<Error, PlayerName[]>> => 
+    client.query<PlayerNameRow>(
+        SELECT_PLAYER_NAMES
+    ).then((result) => {
+        if (result.rows.length > 0) {
+            return toSuccess(200, result.rows.map(r => _normalizePlayerNameRow(r)));
+        }
+        else {
+            return toFailure(404, 
+                `[selectPlayerNames] Failed to select players. No rows found.`
+            );
+        }
+    }).catch((err) => {
+        return toFailure(500, 
+            `[selectPlayerNames] Error when selecting players. Error: ${err.message}`
         );
     });
