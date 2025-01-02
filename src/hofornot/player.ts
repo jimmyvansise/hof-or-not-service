@@ -4,7 +4,7 @@ import { toFailure, toSuccess } from '../utils/helpers';
 
 import { SELECT_PLAYER_BY_PLAYER_ID, SELECT_PLAYER_NAMES } from './queries';
 
-const _normalize = (playerRow: PlayerRow): Player => {
+const _normalize = (playerRow: PlayerWithHofChoiceRow): PlayerWithHofChoice => {
     return { 
         playerId: playerRow.player_id, 
         firstName: playerRow.first_name,
@@ -15,7 +15,8 @@ const _normalize = (playerRow: PlayerRow): Player => {
         proBowls: parseInt(playerRow.pro_bowls),
         mvps: parseInt(playerRow.mvps),
         yearRetired: parseInt(playerRow.year_retired),
-        picture: playerRow.picture
+        picture: playerRow.picture,
+        hofChoice: playerRow.hof_choice
     }
 };
 
@@ -29,9 +30,11 @@ const _normalizePlayerNameRow = (playerNameRow: PlayerNameRow): PlayerName => {
 export const selectPlayer = async (
     client: Readonly<PoolClient>,
     playerId: string,
-): Promise<Either<Error, Player>> => 
-    client.query<PlayerRow>(SELECT_PLAYER_BY_PLAYER_ID, [
+    userId: string | undefined,
+): Promise<Either<Error, PlayerWithHofChoice>> => 
+    client.query<PlayerWithHofChoiceRow>(SELECT_PLAYER_BY_PLAYER_ID, [
         playerId,
+        userId,
     ]).then((result) => {
         if (result.rows.length === 1) {
             return toSuccess(200, _normalize(result.rows[0]));

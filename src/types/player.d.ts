@@ -11,6 +11,12 @@ type Player = {
     readonly picture: string;
 };
 
+type HofChoice = {
+    readonly hofChoice: boolean | null;
+}
+
+type PlayerWithHofChoice = Player & HofChoice;
+
 type PlayerRow = {
     readonly player_id: string;
     readonly first_name: string;
@@ -23,6 +29,12 @@ type PlayerRow = {
     readonly year_retired: string;
     readonly picture: string;
 };
+
+type HofChoiceRow = {
+    readonly hof_choice: boolean | null;
+}
+
+type PlayerWithHofChoiceRow = PlayerRow & HofChoiceRow;
 
 type PlayerPayload = {
     readonly firstName: string;
@@ -39,5 +51,11 @@ type PlayerPayload = {
 type PlayerIdPayload = {
     readonly playerId: string;
 };
+
+type UserIdPayload = {
+    readonly userId: string;
+};
+
+type PlayerIdUserIdPayload = PlayerIdPayload & UserIdPayload;
 
 type PlayerPayloadWithPlayerId = PlayerPayload & PlayerIdPayload;

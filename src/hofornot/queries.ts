@@ -1,8 +1,10 @@
 import { TABLES } from "../enums";
 
 export const SELECT_PLAYER_BY_PLAYER_ID = `
-    SELECT * FROM ${TABLES.PLAYERS}
-    WHERE player_id = $1
+    SELECT ${TABLES.PLAYERS}.*, ${TABLES.VOTES}.hof_choice FROM ${TABLES.PLAYERS}
+    LEFT JOIN ${TABLES.VOTES} on ${TABLES.VOTES}.player_id = ${TABLES.PLAYERS}.player_id 
+        AND ${TABLES.VOTES}.user_id = $2
+    WHERE ${TABLES.PLAYERS}.player_id = $1
 `;
 
 export const SELECT_PLAYER_NAMES = `

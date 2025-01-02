@@ -33,8 +33,8 @@ type VotePayload = {
     readonly hofChoice: boolean;
 };
 
-type userIdPayload = {
+type UserIdPayload = {
     readonly userId: string;
 };
 
-type VotePayloadWithUserId = VotePayload & userIdPayload;
+type VotePayloadWithUserId = VotePayload & UserIdPayload;

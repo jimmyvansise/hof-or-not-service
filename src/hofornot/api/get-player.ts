@@ -46,12 +46,12 @@ export const getPlayer: RequestHandler = async (
         return res.status(maybeGetPlayerPayload.status).send('Unable to parse payload');
     }
 
-    const { playerId } = maybeGetPlayerPayload.value;
+    const { playerId, userId } = maybeGetPlayerPayload.value;
 
     const readClient = await reader();
 
     try {
-        const maybeExistingPlayer = await selectPlayer(readClient, playerId);
+        const maybeExistingPlayer = await selectPlayer(readClient, playerId, userId);
 
         if (!maybeExistingPlayer.ok) {
             logger.error(
@@ -75,6 +75,7 @@ export const getPlayer: RequestHandler = async (
             mvps: maybeExistingPlayer.value.mvps,
             yearRetired: maybeExistingPlayer.value.yearRetired,
             picture: presignedUrl,
+            hofChoice: maybeExistingPlayer.value.hofChoice,
         })
     }
     finally {
