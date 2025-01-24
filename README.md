@@ -18,7 +18,7 @@ After the DB is running you will have to insert the values into the database by 
 
 2 go to the root directory `cd ../../../`
 
-3 run this `psql -U postgres -d hofornot -c "COPY hofornot.players (player_id, first_name, last_name, nickname, position, super_bowl_wins, pro_bowls, mvps, year_retired, picture) FROM '/app/player-picture-base64s.csv' DELIMITER '|' CSV HEADER NULL 'NULL'"`
+3 run this `psql -U postgres -d hofornot -c "COPY hofornot.players (player_id, first_name, last_name, nickname, position, super_bowl_wins, pro_bowls, mvps, year_retired, picture) FROM '/app/player-data.csv' DELIMITER '|' CSV HEADER NULL 'NULL'"`
 
 
 
@@ -34,4 +34,4 @@ Production notes:
 and then modify the docker-compose.yaml with this line for flyway
 `flyway -url=jdbc:postgresql://hofornot.cz2y86moc6n3.us-east-2.rds.amazonaws.com:5432/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate"`
 After that, if you need to insert values (like new players), use the .csv file at 
-`db/player-picture-base64s.csv` and import values using TablePlus after connecting to production
+`db/player-data.csv` and import values using TablePlus after connecting to production

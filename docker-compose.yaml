@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./db/player-picture-base64s.csv:/app/player-picture-base64s.csv
+      - ./db/player-data.csv:/app/player-data.csv
     healthcheck:
       test: "pg_isready -q -U ${POSTGRES_USER}"
   flyway:
