@@ -20,16 +20,19 @@ const s3Client = new S3Client({
 });
 
 async function generatePresignedUrl(key: string) {
-  const params = {
-    Bucket: 'nfl-player-pictures',
-    Key: key,
-    Expires: 60 * 60 * 24 // 24 hours
-  };
+    if (!key.length) return '';
 
-  const signedUrl = await getSignedUrl(s3Client, new GetObjectCommand(params), {
-      expiresIn: 60 * 60 * 24,
-  });
-  return signedUrl;
+    const params = {
+        Bucket: 'nfl-player-pictures',
+        Key: key,
+        Expires: 60 * 60 * 24 // 24 hours
+    };
+
+    const signedUrl = await getSignedUrl(s3Client, new GetObjectCommand(params), {
+        expiresIn: 60 * 60 * 24,
+    });
+
+    return signedUrl;
 }
 
 export const getPlayer: RequestHandler = async (
@@ -52,7 +55,7 @@ export const getPlayer: RequestHandler = async (
 
     try {
         const maybeExistingPlayer = await selectPlayer(readClient, playerId, userId);
-
+        
         if (!maybeExistingPlayer.ok) {
             logger.error(
                 `[getPlayer] could not select player. ${errorToString(maybeExistingPlayer.error)}`
@@ -61,8 +64,10 @@ export const getPlayer: RequestHandler = async (
                 errorToString(maybeExistingPlayer.error)
             );
         }
-
         const presignedUrl = await generatePresignedUrl(maybeExistingPlayer.value.picture);
+        const related1Url = await generatePresignedUrl(maybeExistingPlayer.value.relatedPlayer1Picture);
+        const related2Url = await generatePresignedUrl(maybeExistingPlayer.value.relatedPlayer2Picture);
+        const related3Url = await generatePresignedUrl(maybeExistingPlayer.value.relatedPlayer3Picture);
     
         return res.status(maybeExistingPlayer.status).send({
             id: maybeExistingPlayer.value.playerId, 
@@ -76,7 +81,19 @@ export const getPlayer: RequestHandler = async (
             yearRetired: maybeExistingPlayer.value.yearRetired,
             picture: presignedUrl,
             hofChoice: maybeExistingPlayer.value.hofChoice,
-        })
+            relatedPlayer1FirstName: maybeExistingPlayer.value.relatedPlayer1FirstName,
+            relatedPlayer1LastName: maybeExistingPlayer.value.relatedPlayer1LastName,
+            relatedPlayer1Picture: related1Url,
+            relatedPlayer1HofYesPercent:  maybeExistingPlayer.value.relatedPlayer1HofYesPercent,
+            relatedPlayer2FirstName: maybeExistingPlayer.value.relatedPlayer2FirstName,
+            relatedPlayer2LastName: maybeExistingPlayer.value.relatedPlayer2LastName,
+            relatedPlayer2Picture: related2Url,
+            relatedPlayer2HofYesPercent:  maybeExistingPlayer.value.relatedPlayer2HofYesPercent,
+            relatedPlayer3FirstName: maybeExistingPlayer.value.relatedPlayer3FirstName,
+            relatedPlayer3LastName: maybeExistingPlayer.value.relatedPlayer3LastName,
+            relatedPlayer3Picture: related3Url,
+            relatedPlayer3HofYesPercent:  maybeExistingPlayer.value.relatedPlayer3HofYesPercent
+        });
     }
     finally {
         readClient.release();

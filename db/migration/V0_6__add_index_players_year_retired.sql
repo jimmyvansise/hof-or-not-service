@@ -1,0 +1,1 @@
+CREATE INDEX idx_players_year_retired ON players(year_retired);
