@@ -35,3 +35,17 @@ and then modify the docker-compose.yaml with this line for flyway
 `flyway -url=jdbc:postgresql://hofornot.cz2y86moc6n3.us-east-2.rds.amazonaws.com:5432/${POSTGRES_DB} -schemas=${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate"`
 After that, if you need to insert values (like new players), use the .csv file at 
 `db/player-data.csv` and import values using TablePlus after connecting to production
+
+* To update the ECS service:
+Push to ECR guide
+
+// dont worry about changing .env, it is on AWS
+npm run docker:service:build
+
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 537124955171.dkr.ecr.us-east-2.amazonaws.com
+
+docker tag jimmyvansise-hof-or-not-service:latest 537124955171.dkr.ecr.us-east-2.amazonaws.com/hofornot/hofornotservice:latest
+
+docker push 537124955171.dkr.ecr.us-east-2.amazonaws.com/hofornot/hofornotservice:latest
+
+force a new deployment from ECS -> Service -> Update Service, dont need to change any settings except checkbox force
