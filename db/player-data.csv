@@ -6,7 +6,7 @@ player_id|first_name|last_name|nickname|position|super_bowl_wins|pro_bowls|mvps|
 5|Troy|Aikman||QB|3|6|0|2000|troyaikman.jpg
 6|Emmitt|Smith||RB|3|8|1|2005|emmittsmith.jpg
 7|Michael|Irvin|Playmaker|WR|3|5|0|2000|michaelirvin.jpg
-8|Deion|Sanders|Primetime|CB|2|8|0|2005|deionsanders.jpg
+8|Deion|Sanders|Primetime|DB|2|8|0|2005|deionsanders.jpg
 9|Larry|Allen||G|1|11|0|2009|larryallen.jpg
 10|Dan|Marino||QB|0|9|1|2000|danmarino.jpg
 11|Rex|Grossman||QB|0|0|0|2012|rexgrossman.jpg
@@ -17,7 +17,7 @@ player_id|first_name|last_name|nickname|position|super_bowl_wins|pro_bowls|mvps|
 16|Marcus|Allen||RB|1|6|1|2003|marcusallen.jpg
 17|Morten|Andersen||K|0|7|0|2007|mortenandersen.jpg
 18|O.J.|Simpson|The Juice|RB|0|5|0|1979|ojsimpson.jpg
-19|Champ|Bailey||CB|0|12|0|2014|champbailey.jpg
+19|Champ|Bailey||DB|0|12|0|2014|champbailey.jpg
 20|Jerome|Bettis|The Bus|RB|1|6|0|2006|jeromebettis.jpg
 21|George|Blanda||QB/K|0|4|0|1969|georgeblanda.jpg
 22|Terry|Bradshaw||QB|4|3|1|1983|terrybradshaw.jpg
@@ -80,7 +80,7 @@ player_id|first_name|last_name|nickname|position|super_bowl_wins|pro_bowls|mvps|
 79|Bob|Lilly|Tiger|DT/DE|1|11|0|1974|boblilly.jpg
 80|Roger|Staubach|Roger the Dodger|QB|2|6|0|1979|rogerstaubach.jpg
 81|Andrew|Whitworth||T|1|4|0|2021|andrewwhitworth.jpg
-82|Zack|Martin||G|0|9|0|NULL|zackmartin.jpg
+82|Zack|Martin||G|0|9|0|2024|zackmartin.jpg
 83|Andrew|Luck||QB|0|4|0|2018|andrewluck.jpg
 84|Adrian|Peterson|All Day|RB|0|7|1|2021|adrianpeterson.jpg
 85|Barry|Sanders||RB|0|10|1|1998|barrysanders.jpg

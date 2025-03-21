@@ -21,8 +21,8 @@ export const SELECT_PLAYER_BY_PLAYER_ID = `
         p.player_id = $1
         AND rp.player_id != p.player_id
         AND (
-            p.position LIKE '%' || rp.position || '%' OR
-            rp.position LIKE '%' || p.position || '%'
+            (LENGTH(p.position) = 1 AND LENGTH(rp.position) = 1 AND p.position = rp.position) OR
+            (LENGTH(p.position) > 1 AND LENGTH(rp.position) > 1 AND (p.position LIKE '%' || rp.position || '%' OR rp.position LIKE '%' || p.position || '%'))
         )
     ),
     limited_relatedplayers AS (
